@@ -1,0 +1,30 @@
+{
+  "name": "yjs-monaco-demo",
+  "version": "1.0.0",
+  "description": "Yjs ❤ Monaco",
+  "main": "index.js",
+  "scripts": {
+    "ensureBundle": "[ -f ./dist/monaco.bundle.js ] || npm run dist",
+    "watch": "webpack -w --stats errors-only",
+    "dist": "webpack --mode=production",
+    "start": "npm run ensureBundle && webpack serve --open monaco.html"
+  },
+  "author": "Kevin Jahns <kevin.jahns@pm.me>",
+  "license": "UNLICENSE",
+  "dependencies": {
+    "@myriaddreamin/typst-ts-renderer": "^0.6.1-rc3",
+    "@myriaddreamin/typst-ts-web-compiler": "^0.6.1-rc3",
+    "@myriaddreamin/typst.ts": "^0.6.1-rc3",
+    "css-loader": "^6.8.1",
+    "monaco-editor": "^0.44.0",
+    "monaco-editor-webpack-plugin": "^7.1.0",
+    "style-loader": "^3.3.3",
+    "y-monaco": "^0.1.2",
+    "y-websocket": "^1.5.4",
+    "yjs": "^13.6.27"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
+}

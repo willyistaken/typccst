@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Yjs Monaco Example</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;          /* side by side layout */
+      flex-direction: row;
+    }
+    #monaco-editor {
+      flex: 1;                /* left pane */
+      height: 100%;
+      border-right: 1px solid #ccc;
+    }
+    #preview {
+      flex: 1;                /* right pane */
+      height: 100%;
+      padding: 1em;
+      overflow: auto;
+      background: #f9f9f9;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    .yRemoteSelection {
+      background-color: rgba(250, 129, 0, .5);
+    }
+    .yRemoteSelectionHead {
+      position: absolute;
+      border-left: orange solid 2px;
+      border-top: orange solid 2px;
+      border-bottom: orange solid 2px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .yRemoteSelectionHead::after {
+      position: absolute;
+      content: ' ';
+      border: 3px solid orange;
+      border-radius: 4px;
+      left: -4px;
+      top: -5px;
+    }
+  </style>
+</head>
+<body>
+  <button type="button" id="y-connect-btn">Disconnect</button>
+  <div id="monaco-editor"></div>
+  <div id="preview"></div>
+
+		<script type="text/javascript" src="./dist/monaco.bundle.js"></script>
+</body>
+</html>
+
