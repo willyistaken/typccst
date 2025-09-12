@@ -12,5 +12,5 @@ Also you could try adding offline persistence to this demo. Wouldn't it be cool 
 ```sh
 npm i
 npm start
-# Project is running at http://localhost:8080/
+# Project is running at http://localhost:8080/, the start might take a while, since it need to compile stuff
 ```
