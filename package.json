@@ -12,6 +12,7 @@
   "author": "Kevin Jahns <kevin.jahns@pm.me>",
   "license": "UNLICENSE",
   "dependencies": {
+    "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3",
     "@myriaddreamin/typst-ts-renderer": "^0.6.1-rc3",
     "@myriaddreamin/typst-ts-web-compiler": "^0.6.1-rc3",
     "@myriaddreamin/typst.ts": "^0.6.1-rc3",

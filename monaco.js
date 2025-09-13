@@ -4,7 +4,6 @@ import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 import { MonacoBinding } from 'y-monaco'
 import * as monaco from 'monaco-editor'
-import { $typst } from '@myriaddreamin/typst.ts';
 
 
 // // @ts-ignore
@@ -27,9 +26,9 @@ import { $typst } from '@myriaddreamin/typst.ts';
 // }
 
 const roomname = `monaco-demo-${new Date().toLocaleDateString('en-CA')}`
+let editor;
 
-window.addEventListener('load', () => {
-	console.log("hello");
+window.addEventListener('load',  () => {
   const ydoc = new Y.Doc()
   const provider = new WebsocketProvider(
     'wss://localhost:8080', // use the public ws server
@@ -39,7 +38,7 @@ window.addEventListener('load', () => {
   )
   const ytext = ydoc.getText('monaco')
 
-  const editor = monaco.editor.create(/** @type {HTMLElement} */ (document.getElementById('monaco-editor')), {
+  editor = monaco.editor.create(/** @type {HTMLElement} */ (document.getElementById('monaco-editor')), {
     value: '',
     language: 'javascript',
     theme: 'vs-dark'
@@ -62,18 +61,66 @@ window.addEventListener('load', () => {
 
 
 
-
-  // update preview whenever editor changes
-  editor.onDidChangeModelContent(() => {
-	const mainContent = editor.getValue()
-    preview.textContent = await $typst.svg({ mainContent });
-  })
-
-  // initialize preview with current content
-  preview.textContent = editor.getValue()
-
-
+	
   // @ts-ignore
   window.example = { provider, ydoc, ytext, monacoBinding }
 
 })
+
+
+
+// :-> 7317
+
+
+const renderBtn = document.getElementById("render-btn");
+const preview   = document.getElementById("preview");
+
+    const contentDiv = document.getElementById('content');
+
+    // Exports SVG and puts it into the `contentDiv`
+    const previewSvg = mainContent => {
+      $typst.svg({ mainContent }).then(svg => {
+        console.log(`rendered! SvgElement { len: ${svg.length} }`);
+        // append svg text
+        preview.innerHTML = svg;
+
+      });
+    };
+
+    // Exports PDF and downloads it
+    const exportPdf = mainContent =>
+      $typst.pdf({ mainContent }).then(pdfData => {
+        var pdfFile = new Blob([pdfData], { type: 'application/pdf' });
+
+        // Creates element with <a> tag
+        const link = document.createElement('a');
+        // Sets file content in the object URL
+        link.href = URL.createObjectURL(pdfFile);
+        // Sets file name
+        link.target = '_blank';
+        // Triggers a click event to <a> tag to save file.
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+
+    /// Listens the 'load' event to initialize after loaded the bundle file from CDN (jsdelivr).
+    document.getElementById('typst').addEventListener('load', function () {
+      /// Initializes the Typst compiler and renderer. Since we use "all-in-one-lite.bundle.js" instead of
+      /// "all-in-one.bundle.js" we need to tell that the wasm module files can be loaded from CDN (jsdelivr).
+      $typst.setCompilerInitOptions({
+        getModule: () =>
+          'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm',
+      });
+      $typst.setRendererInitOptions({
+        getModule: () =>
+          'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer_bg.wasm',
+      });
+
+      /// Binds exportPdf action to the button
+      document.getElementById('render-btn').onclick = () => {exportPdf(editor.getValue());previewSvg(editor.getValue());}
+      /// Binds previewSvg action to the textarea
+      /// Triggers the first preview.
+      previewSvg(editor.getValue());
+    });
+
+
