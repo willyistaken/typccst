@@ -31,7 +31,7 @@ let editor;
 window.addEventListener('load',  () => {
   const ydoc = new Y.Doc()
   const provider = new WebsocketProvider(
-    'wss://localhost:8080', // use the public ws server
+    'ws://ws1.csie.ntu.edu.tw:12345', // use the public ws server
     // `ws${location.protocol.slice(4)}//${location.host}/ws`, // alternatively: use the local ws server (run `npm start` in root directory)
     roomname,
     ydoc
