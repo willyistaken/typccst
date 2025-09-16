@@ -4,6 +4,7 @@ import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 import { MonacoBinding } from 'y-monaco'
 import * as monaco from 'monaco-editor'
+import { initVimMode } from 'monaco-vim'
 
 
 // // @ts-ignore
@@ -45,6 +46,12 @@ window.addEventListener('load',  () => {
     theme: 'vs-dark'
   })
   const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */ (editor.getModel()), new Set([editor]), provider.awareness)
+
+  const statusNode = document.getElementById('vim-status-bar'); // A div to display mode status (e.g., 'NORMAL')
+  const vimMode = initVimMode(editor, statusNode);
+  if (vimMode) {
+    console.log('Vim mode successfully initialized.');
+  }
 
   const connectBtn = /** @type {HTMLElement} */ (document.getElementById('y-connect-btn'))
   connectBtn.addEventListener('click', () => {
