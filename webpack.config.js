@@ -26,6 +26,8 @@ module.exports = {
     ]
   },
   devServer: {
+    host: "0.0.0.0",
+    allowedHosts: "all",  // or ["192.168.1.50", ".mydomain.com"]
     static: path.join(__dirname),
     compress: true
   },
