@@ -32,6 +32,7 @@ window.addEventListener('load',  () => {
   const ydoc = new Y.Doc()
   const provider = new WebsocketProvider(
     'ws://ws1.csie.ntu.edu.tw:12345', // use the public ws server
+    // 'ws://localhost:12345', 
     // `ws${location.protocol.slice(4)}//${location.host}/ws`, // alternatively: use the local ws server (run `npm start` in root directory)
     roomname,
     ydoc
@@ -103,6 +104,14 @@ const preview   = document.getElementById("preview");
         URL.revokeObjectURL(link.href);
       });
 
+
+
+    async function update_typst () {
+      exportPdf(editor.getValue());
+      previewSvg(editor.getValue());
+    }
+    setInterval(update_typst, 500)
+
     /// Listens the 'load' event to initialize after loaded the bundle file from CDN (jsdelivr).
     document.getElementById('typst').addEventListener('load', function () {
       /// Initializes the Typst compiler and renderer. Since we use "all-in-one-lite.bundle.js" instead of
@@ -117,7 +126,7 @@ const preview   = document.getElementById("preview");
       });
 
       /// Binds exportPdf action to the button
-      document.getElementById('render-btn').onclick = () => {exportPdf(editor.getValue());previewSvg(editor.getValue());}
+      document.getElementById('render-btn').onclick = update_typst;
       /// Binds previewSvg action to the textarea
       /// Triggers the first preview.
       previewSvg(editor.getValue());
