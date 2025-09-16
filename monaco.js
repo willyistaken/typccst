@@ -32,7 +32,8 @@ let editor;
 window.addEventListener('load',  () => {
   const ydoc = new Y.Doc()
   const provider = new WebsocketProvider(
-    'ws://ws1.csie.ntu.edu.tw:12345', // use the public ws server
+    `ws://${window.location.hostname}:12345`,
+    // 'ws://ws1.csie.ntu.edu.tw:12345', // use the public ws server
     // 'ws://localhost:12345', 
     // `ws${location.protocol.slice(4)}//${location.host}/ws`, // alternatively: use the local ws server (run `npm start` in root directory)
     roomname,
@@ -113,7 +114,11 @@ const preview   = document.getElementById("preview");
 
 
 
+    var now_text = "";
     async function update_typst () {
+      const txt = editor.getValue();
+      if (now_text == txt) return;
+      now_text = txt;
       exportPdf(editor.getValue());
       previewSvg(editor.getValue());
     }
