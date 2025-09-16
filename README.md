@@ -9,6 +9,11 @@ Also you could try adding offline persistence to this demo. Wouldn't it be cool 
 
 ## Quick Start
 
+1. start websocket server, by using start-websocket.sh
+
+2. change monaco.js , and change the websocket server location to your ip
+3. clear dist, by rm -r dist
+4.
 ```sh
 npm i
 npm start
