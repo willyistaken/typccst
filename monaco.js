@@ -49,10 +49,28 @@ window.addEventListener('load',  () => {
   const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */ (editor.getModel()), new Set([editor]), provider.awareness)
 
   const statusNode = document.getElementById('vim-status-bar'); // A div to display mode status (e.g., 'NORMAL')
-  const vimMode = initVimMode(editor, statusNode);
+let vimMode = null;
+let vimEnabled = false;
+
+document.getElementById("vim-mode").addEventListener("click", () => {
+  if (vimEnabled) {
+    // turn off vim
+    vimMode.dispose();
+    vimMode = null;
+    vimEnabled = false;
+    statusNode.textContent = "Vim OFF";
+  } else {
+    // turn on vim
+    vimMode = initVimMode(editor, statusNode);
+    vimEnabled = true;
+    statusNode.textContent = "Vim ON";
+  }
   if (vimMode) {
     console.log('Vim mode successfully initialized.');
-  }
+  }else{
+			console.log('vim mode deactivated');
+	}
+});
 
   const connectBtn = /** @type {HTMLElement} */ (document.getElementById('y-connect-btn'))
   connectBtn.addEventListener('click', () => {
