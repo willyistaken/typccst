@@ -43,12 +43,13 @@ window.addEventListener('load',  () => {
 
   editor = monaco.editor.create(/** @type {HTMLElement} */ (document.getElementById('monaco-editor')), {
     value: '',
-    language: 'javascript',
+    language: 'typst',
     theme: 'vs-dark'
   })
   const monacoBinding = new MonacoBinding(ytext, /** @type {monaco.editor.ITextModel} */ (editor.getModel()), new Set([editor]), provider.awareness)
 
   const statusNode = document.getElementById('vim-status-bar'); // A div to display mode status (e.g., 'NORMAL')
+  const vimCommandNode = document.getElementById('vim-command-bar');
 let vimMode = null;
 let vimEnabled = false;
 
@@ -61,7 +62,7 @@ document.getElementById("vim-toggle").addEventListener("click", () => {
     statusNode.textContent = "Vim OFF";
   } else {
     // turn on vim
-    vimMode = initVimMode(editor, statusNode);
+    vimMode = initVimMode(editor, vimCommandNode);
     vimEnabled = true;
     statusNode.textContent = "Vim ON";
   }
