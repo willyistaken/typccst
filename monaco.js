@@ -52,7 +52,7 @@ window.addEventListener('load',  () => {
 let vimMode = null;
 let vimEnabled = false;
 
-document.getElementById("vim-mode").addEventListener("click", () => {
+document.getElementById("vim-toggle").addEventListener("click", () => {
   if (vimEnabled) {
     // turn off vim
     vimMode.dispose();
@@ -156,7 +156,7 @@ const preview   = document.getElementById("preview");
       });
 
       /// Binds exportPdf action to the button
-      document.getElementById('render-btn').onclick = update_typst;
+      // document.getElementById('render-btn').onclick = update_typst;
       /// Binds previewSvg action to the textarea
       /// Triggers the first preview.
       previewSvg(editor.getValue());
