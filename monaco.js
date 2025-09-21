@@ -5,6 +5,7 @@ import { WebsocketProvider } from 'y-websocket'
 import { MonacoBinding } from 'y-monaco'
 import * as monaco from 'monaco-editor'
 import { initVimMode } from 'monaco-vim'
+import { registerTypstLanguage } from './typst-syntax.js';
 
 
 // // @ts-ignore
@@ -30,6 +31,7 @@ const roomname = `monaco-demo-${new Date().toLocaleDateString('en-CA')}`
 let editor;
 
 window.addEventListener('load',  () => {
+  registerTypstLanguage(monaco);
   const ydoc = new Y.Doc()
   const provider = new WebsocketProvider(
     `ws://${window.location.hostname}:12345`,
