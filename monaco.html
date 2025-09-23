@@ -72,7 +72,8 @@
     transition: all 0.3s;
   }
   #buttons-area.hidden {
-  transform: translateX(calc(100% - 40px)); /* leave toggle button visible */
+    width: 50px;
+
 	}
 #buttons-area button#sidebar-toggle {
   width: 40px;
@@ -81,6 +82,9 @@
   background: #444;
 }
 #buttons-area.hidden button:not(#sidebar-toggle) {
+	   text-align: center;
+    padding: 15px 0;
+    font-size: 0;
   display: none; /* hide all other buttons */
 }
   /* Vim bar */
